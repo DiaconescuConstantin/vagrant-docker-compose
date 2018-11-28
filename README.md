@@ -6,7 +6,7 @@ Execute and wait to finish:
 
 Open a browser with:
 
-    https://localhost:8080
+    http://localhost:8080
 
 To check containers status:
 
