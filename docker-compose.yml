@@ -18,9 +18,9 @@ services:
       context: ./apps/static-ui
     restart: always
     ports:
-      - '80:80'
+      - 80:80
     depends_on:
-      - "mysql"
+      - mysql
   api:
     build:
       dockerfile: Dockerfile
@@ -33,11 +33,13 @@ services:
       - MYPORT=3306
       - MYPOOLCONNECTIONS=5
     depends_on:
-      - "mysql"
+      - mysql
   adminer:
     image: 'adminer:latest'
     restart: always
     ports:
       - 8080:8080
     depends_on:
-      - "mysql"
+      - mysql
+    environment:
+      - ADMINER_DEFAULT_SERVER=mysql
