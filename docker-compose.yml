@@ -1,0 +1,36 @@
+version: '3'
+services:
+  mysql:
+    image: 'mysql:5'
+    volumes:
+      - ./data/mysql/data:/var/lib/mysql
+      - ./data/mysql/init:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+    healthcheck:
+      test: mysqladmin -uroot -p123456 ping
+      interval: 2s
+      timeout: 5s
+      retries: 30
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./apps/static-ui
+    ports:
+      - '80:80'
+    depends_on:
+      - "mysql"
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: ./apps/api
+    environment:
+      - MYUSER=root
+      - MYHOST=mysql
+      - MYDATABASE=mydatabase
+      - MYPASSWORD=123456
+      - MYPORT=3306
+      - MYPOOLCONNECTIONS=5
+    depends_on:
+      - "mysql"
