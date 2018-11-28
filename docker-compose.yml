@@ -13,10 +13,10 @@ services:
       timeout: 5s
       retries: 30
   nginx:
-    restart: always
     build:
       dockerfile: Dockerfile
       context: ./apps/static-ui
+    restart: always
     ports:
       - '80:80'
     depends_on:
@@ -32,5 +32,12 @@ services:
       - MYPASSWORD=123456
       - MYPORT=3306
       - MYPOOLCONNECTIONS=5
+    depends_on:
+      - "mysql"
+  adminer:
+    image: 'adminer:latest'
+    restart: always
+    ports:
+      - 8080:8080
     depends_on:
       - "mysql"

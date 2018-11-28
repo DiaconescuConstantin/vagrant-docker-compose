@@ -4,9 +4,13 @@ Execute and wait to finish:
 
 **Note:** docker compose will automatically start (docker-compose up -d -f /vagrant/docker-compose.yml)
 
-Open a browser with:
+App URL:
 
     http://localhost:8080
+
+Mysql Adminer URL:
+
+    http://localhost:8081
 
 To check containers status:
 

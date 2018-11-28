@@ -58,6 +58,8 @@ export default {
       axios.get(`${this.$store.state.api}/values?${query}`)
         .then((response) => {
           if (response.data.success) {
+            self.name = '';
+            self.value = '';
             self.loadItems();
           }
         })
